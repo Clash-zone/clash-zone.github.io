@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tom & Jerry - Classic Cartoon Adventures</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'tom-blue': 'hsl(210, 100%, 45%)',
+                        'jerry-brown': 'hsl(30, 45%, 55%)',
+                        'cartoon-yellow': 'hsl(45, 100%, 65%)',
+                        'cartoon-red': 'hsl(0, 85%, 60%)',
+                        'cartoon-green': 'hsl(120, 60%, 50%)',
+                        'cartoon-purple': 'hsl(280, 65%, 60%)',
+                    },
+                    backgroundImage: {
+                        'gradient-hero': 'linear-gradient(135deg, hsl(210, 100%, 45%), hsl(30, 45%, 55%))',
+                        'gradient-card': 'linear-gradient(180deg, hsl(0, 0%, 100%), hsl(50, 30%, 95%))',
+                        'gradient-accent': 'linear-gradient(90deg, hsl(45, 100%, 65%), hsl(0, 85%, 60%))',
+                    },
+                    boxShadow: {
+                        'cartoon': '0 8px 32px hsl(210, 100%, 45%, 0.15)',
+                        'hover': '0 12px 48px hsl(210, 100%, 45%, 0.25)',
+                    },
+                    transitionTimingFunction: {
+                        'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --background: 50 100% 97%;
+            --foreground: 240 38% 20%;
+            --card: 0 0% 100%;
+            --card-foreground: 240 38% 20%;
+            --primary: 210 100% 45%;
+            --primary-foreground: 0 0% 100%;
+            --secondary: 30 45% 55%;
+            --secondary-foreground: 0 0% 100%;
+            --muted: 50 30% 92%;
+            --muted-foreground: 240 15% 50%;
+            --accent: 45 100% 65%;
+            --accent-foreground: 240 38% 20%;
+            --border: 50 20% 88%;
+            --radius: 0.8rem;
+        }
+
+        body {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .cartoon-bounce {
+            animation: cartoonBounce 2s infinite ease-in-out;
+        }
+
+        .hover-float {
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .hover-float:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 48px hsl(210, 100%, 45%, 0.25);
+        }
+
+        .wiggle {
+            animation: wiggle 2s infinite;
+        }
+
+        @keyframes cartoonBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes wiggle {
+            0%, 7% { transform: rotateZ(0); }
+            15% { transform: rotateZ(-15deg); }
+            20% { transform: rotateZ(10deg); }
+            25% { transform: rotateZ(-10deg); }
+            30% { transform: rotateZ(6deg); }
+            35% { transform: rotateZ(-4deg); }
+            40%, 100% { transform: rotateZ(0); }
+        }
+
+        .btn-hero {
+            background: linear-gradient(135deg, hsl(210, 100%, 45%), hsl(30, 45%, 55%));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 12px 48px hsl(210, 100%, 45%, 0.25);
+        }
+
+        .btn-hero:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .btn-cartoon {
+            background: linear-gradient(90deg, hsl(45, 100%, 65%), hsl(0, 85%, 60%));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            border: 2px solid hsl(45, 100%, 65%, 0.3);
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 8px 32px hsl(210, 100%, 45%, 0.15);
+        }
+
+        .btn-cartoon:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .tom-jerry-card {
+            background: linear-gradient(180deg, hsl(0, 0%, 100%), hsl(50, 30%, 95%));
+            border: 2px solid hsl(50, 20%, 88%, 0.5);
+            border-radius: var(--radius);
+            box-shadow: 0 8px 32px hsl(210, 100%, 45%, 0.15);
+            padding: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .tom-jerry-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 48px hsl(210, 100%, 45%, 0.25);
+        }
+
+        .feature-card {
+            background: linear-gradient(90deg, hsl(45, 100%, 65%), hsl(0, 85%, 60%));
+            border: 2px solid hsl(45, 100%, 65%, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden bg-gradient-hero">
+        <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+        <div class="relative container mx-auto px-4 py-20 text-center">
+            <div class="max-w-4xl mx-auto space-y-8">
+                <img 
+                    src="src/assets/tom-jerry-hero.jpg" 
+                    alt="Tom and Jerry Hero" 
+                    class="w-full max-w-2xl mx-auto rounded-2xl shadow-hover cartoon-bounce"
+                />
+                <div class="space-y-4">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white wiggle">
+                        Tom & Jerry
+                    </h1>
+                    <p class="text-xl md:text-2xl text-white text-opacity-90 max-w-2xl mx-auto">
+                        The timeless tale of cat and mouse that has entertained generations with endless chases, clever pranks, and unforgettable adventures!
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+                        <button class="btn-hero" onclick="scrollToSection('videos-section')">
+                            Watch Episodes
+                        </button>
+                        <button class="btn-cartoon" onclick="scrollToSection('gallery-section')">
+                            Explore Gallery
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center space-y-8">
+                <h2 class="text-4xl md:text-5xl font-bold">
+                    The Classic Duo
+                </h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="tom-jerry-card feature-card">
+                        <div class="text-center space-y-4">
+                            <div class="w-16 h-16 bg-tom-blue rounded-full mx-auto flex items-center justify-center text-white text-2xl font-bold">
+                                🐱
+                            </div>
+                            <h3 class="text-2xl font-bold">Tom Cat</h3>
+                            <p class="text-gray-600">
+                                The persistent blue-gray house cat who never gives up on catching Jerry, no matter how many creative schemes backfire on him.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="tom-jerry-card feature-card">
+                        <div class="text-center space-y-4">
+                            <div class="w-16 h-16 bg-jerry-brown rounded-full mx-auto flex items-center justify-center text-white text-2xl font-bold">
+                                🐭
+                            </div>
+                            <h3 class="text-2xl font-bold">Jerry Mouse</h3>
+                            <p class="text-gray-600">
+                                The clever brown mouse who always finds ingenious ways to outsmart Tom and turn the tables in the most hilarious fashion.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Videos Section -->
+    <section id="videos-section" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="space-y-12">
+                <div class="text-center space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-bold">
+                        Featured Episodes
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                        Relive the magic with these classic Tom and Jerry episodes and compilations
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Video 1 -->
+                    <div class="tom-jerry-card overflow-hidden">
+                        <div class="space-y-4">
+                            <div class="aspect-video rounded-lg overflow-hidden">
+                                <iframe
+                                    width="100%"
+                                    height="100%"
+                                    src="https://www.youtube.com/embed/j-88jrkyszQ"
+                                    title="Tom and Jerry Mega Compilation Vol. 1"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                    class="border-0"
+                                ></iframe>
+                            </div>
+                            <div class="space-y-2">
+                                <h3 class="text-lg font-bold">Tom and Jerry Mega Compilation Vol. 1</h3>
+                                <p class="text-sm text-gray-600">Over 45 minutes of Tom and Jerry's funniest moments from classic episodes!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video 2 -->
+                    <div class="tom-jerry-card overflow-hidden">
+                        <div class="space-y-4">
+                            <div class="aspect-video rounded-lg overflow-hidden">
+                                <iframe
+                                    width="100%"
+                                    height="100%"
+                                    src="https://www.youtube.com/embed/t0Q2otsqC4I"
+                                    title="Tom & Jerry in Full Screen"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                    class="border-0"
+                                ></iframe>
+                            </div>
+                            <div class="space-y-2">
+                                <h3 class="text-lg font-bold">Tom & Jerry in Full Screen</h3>
+                                <p class="text-sm text-gray-600">Classic cartoon compilation in widescreen CinemaScope format from the 1950s</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video 3 -->
+                    <div class="tom-jerry-card overflow-hidden">
+                        <div class="space-y-4">
+                            <div class="aspect-video rounded-lg overflow-hidden">
+                                <iframe
+                                    width="100%"
+                                    height="100%"
+                                    src="https://www.youtube.com/embed/cqyziA30whE"
+                                    title="Best Buddies Collection"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                    class="border-0"
+                                ></iframe>
+                            </div>
+                            <div class="space-y-2">
+                                <h3 class="text-lg font-bold">Best Buddies Collection</h3>
+                                <p class="text-sm text-gray-600">Tom, Jerry and Spike show that even rivals can be best friends</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Gallery Section -->
+    <section id="gallery-section" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="space-y-8">
+                <h2 class="text-3xl font-bold text-center">Classic Moments</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="tom-jerry-card overflow-hidden group">
+                        <div class="space-y-3">
+                            <div class="aspect-square rounded-lg overflow-hidden">
+                                <img
+                                    src="src/assets/tom-jerry-logo.jpg"
+                                    alt="Tom and Jerry Logo"
+                                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                />
+                            </div>
+                            <h3 class="text-sm font-semibold text-center">Classic Tom & Jerry</h3>
+                        </div>
+                    </div>
+
+                    <div class="tom-jerry-card overflow-hidden group">
+                        <div class="space-y-3">
+                            <div class="aspect-square rounded-lg overflow-hidden">
+                                <img
+                                    src="src/assets/tom-jerry-classic.jpg"
+                                    alt="Tom and Jerry Classic Scene"
+                                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                />
+                            </div>
+                            <h3 class="text-sm font-semibold text-center">Kitchen Chase</h3>
+                        </div>
+                    </div>
+
+                    <div class="tom-jerry-card overflow-hidden group">
+                        <div class="space-y-3">
+                            <div class="aspect-square rounded-lg overflow-hidden">
+                                <img
+                                    src="src/assets/tom-jerry-hero.jpg"
+                                    alt="Tom and Jerry Hero"
+                                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                />
+                            </div>
+                            <h3 class="text-sm font-semibold text-center">The Eternal Chase</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fun Facts Section -->
+    <section class="py-20 bg-gradient-card">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto space-y-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-center">
+                    Fun Facts
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="tom-jerry-card text-center space-y-4">
+                        <div class="text-3xl font-bold text-cartoon-yellow">164</div>
+                        <h3 class="text-lg font-semibold">Episodes Created</h3>
+                        <p class="text-sm text-gray-600">From 1940 to 1967</p>
+                    </div>
+                    <div class="tom-jerry-card text-center space-y-4">
+                        <div class="text-3xl font-bold text-cartoon-red">7</div>
+                        <h3 class="text-lg font-semibold">Academy Awards</h3>
+                        <p class="text-sm text-gray-600">Won for Best Animated Short</p>
+                    </div>
+                    <div class="tom-jerry-card text-center space-y-4">
+                        <div class="text-3xl font-bold text-cartoon-green">80+</div>
+                        <h3 class="text-lg font-semibold">Years of Entertainment</h3>
+                        <p class="text-sm text-gray-600">Still loved worldwide</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-tom-blue text-white">
+        <div class="container mx-auto px-4 text-center space-y-4">
+            <h3 class="text-2xl font-bold">Tom & Jerry Forever</h3>
+            <p class="text-white text-opacity-80">
+                Created by William Hanna and Joseph Barbera | © Warner Bros. Entertainment
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button class="bg-white bg-opacity-10 border border-white border-opacity-30 text-white hover:bg-white hover:bg-opacity-20 px-4 py-2 rounded transition-colors">
+                    Watch More
+                </button>
+                <button class="bg-white bg-opacity-10 border border-white border-opacity-30 text-white hover:bg-white hover:bg-opacity-20 px-4 py-2 rounded transition-colors">
+                    Share
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
